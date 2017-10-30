@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DBHandler extends SQLiteOpenHelper {
+public class DBHandler extends SQLiteOpenHelper /* abstract class */ {
 
     // Database Version
     private static final int DATABASE_VERSION = 1;
@@ -27,6 +27,13 @@ public class DBHandler extends SQLiteOpenHelper {
 
     public DBHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        /* Initializes in SqliteOpenHelper:
+         mContext = context;
+        mName = name;
+        mFactory = factory;
+        mNewVersion = version;
+        mErrorHandler = errorHandler;
+         */
     }
 
     @Override
@@ -46,16 +53,17 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     // Adding new shop
-    public void addShop(Shop shop) {
-        SQLiteDatabase db = this.getWritableDatabase();
+    public void addShop(Shop shop /* shop is fully ready-made. Dependency injected */) {
+        SQLiteDatabase db = this.getWritableDatabase(); /*Creates database or opens it if already created. This is a thread safe method */
 
+        /*  ContentValues are parcelable objects used to store a set of values that the ContentResolver can process */
         ContentValues values = new ContentValues();
-        values.put(KEY_NAME, shop.getName()); // Shop Name
-        values.put(KEY_SH_ADDR, shop.getAddress()); // Shop Phone Number
+        values.put(KEY_NAME, shop.getName()); // putting values based on Map
+        values.put(KEY_SH_ADDR, shop.getAddress());
 
         // Inserting Row
-        db.insert(TABLE_SHOPS, null, values);
-        db.close(); // Closing database connection
+        db.insert(TABLE_SHOPS, null, values); //values insertion on table
+        db.close(); // Closing database connection. db is calling close(), it means there should be Closeable interface implemented by db's class
     }
 
     // Getting one shop
