@@ -21,24 +21,24 @@ public class MainActivity extends AppCompatActivity {
         mNewVersion = version;
         mErrorHandler = errorHandler;
          */
-        DBHandler /* SqliteOpenHelper class */ db = new DBHandler(this);
+        DBHandler /* SqliteOpenHelper class */ dbHandler = new DBHandler(this);
 
         // Inserting Shop/Rows
         Log.d("Insert: ", "Inserting ..");
         /* addshop() does: get the database, get all the contentValues from shop, insert contentValue, and finally closes the database */
-        db.addShop(new Shop("Dockers", " 475 Brannan St #330, San Francisco, CA 94107, United States"));
-        db.addShop(new Shop("Dunkin Donuts", "White Plains, NY 10601"));
-        db.addShop(new Shop("Pizza Porlar", "North West Avenue, Boston , USA"));
-        db.addShop(new Shop("Town Bakers", "Beverly Hills, CA 90210, USA"));
+        dbHandler.addShop(new Shop("Dockers", " 475 Brannan St #330, San Francisco, CA 94107, United States"));
+        dbHandler.addShop(new Shop("Dunkin Donuts", "White Plains, NY 10601"));
+        dbHandler.addShop(new Shop("Pizza Porlar", "North West Avenue, Boston , USA"));
+        dbHandler.addShop(new Shop("Town Bakers", "Beverly Hills, CA 90210, USA"));
 
         // Reading all shops
         Log.d("Reading: ", "Reading all shops..");
-        List<Shop> shops = db.getAllShops(); /* this method sets the Id.
+        List<Shop> shops = dbHandler.getAllShops(); /* this method sets the Id.
 
          How did I find?
          1) I manually scanned (checked) all the possible instantiations above fetching lines.
-         Possibilities were: initialized (set of Id) either in db creation -- line 16
-         or db.getAllShops(). Finally found inside the method stub of db.getAllShops()
+         Possibilities were: initialized (set of Id) either in dbHandler creation -- line 16
+         or dbHandler.getAllShops(). Finally found inside the method stub of dbHandler.getAllShops()
 
          I don't want to manually scan (check) this shitty things. If there were thousands of lines above me then why?*/
 

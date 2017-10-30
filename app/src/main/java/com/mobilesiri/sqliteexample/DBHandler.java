@@ -63,7 +63,15 @@ public class DBHandler extends SQLiteOpenHelper /* abstract class */ {
 
         // Inserting Row
         db.insert(TABLE_SHOPS, null, values); //values insertion on table
+
+        //destroy the db by closing
         db.close(); // Closing database connection. db is calling close(), it means there should be Closeable interface implemented by db's class
+
+        /*SQLiteDatabase db = this.getWritableDatabase();
+        db.close();
+        These above two lines: I am opening/creating database and then I am closing always. I want to open/create just one
+        and call close in stop or destroy of my activity. This saves my processor and space.*/
+
     }
 
     // Getting one shop
@@ -84,11 +92,16 @@ public class DBHandler extends SQLiteOpenHelper /* abstract class */ {
 
     // Getting All Shops
     public List<Shop> getAllShops() {
+        /*
+        I fetch the data from database, update to model, and return the model
+         */
         List<Shop> shopList = new ArrayList<Shop>();
         // Select All Query
         String selectQuery = "SELECT  * FROM " + TABLE_SHOPS;
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase(); /* I am not initializing the db as global variable because:
+        1) It should be thread-safe, it calls acquireReference() and releaseReference() after I complete my operation on
+        the database */
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         // looping through all rows and adding to list
