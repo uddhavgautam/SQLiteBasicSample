@@ -64,8 +64,8 @@ public class DBHandler extends SQLiteOpenHelper /* abstract class */ {
         // Inserting Row
         db.insert(TABLE_SHOPS, null, values); //values insertion on table
 
-        //destroy the db by closing
-        db.close(); // Closing database connection. db is calling close(), it means there should be Closeable interface implemented by db's class
+        //destroy the db by closing. I don't need to call db.close. It is not needed because getWritableDatabase gives me synchronized database */
+//        db.close(); // Closing database connection. db is calling close(), it means there should be Closeable interface implemented by db's class
 
         /*SQLiteDatabase db = this.getWritableDatabase();
         db.close();

@@ -27,6 +27,10 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Insert: ", "Inserting ..");
         /* addshop() does: get the database, get all the contentValues from shop, insert contentValue, and finally closes the database */
         dbHandler.addShop(new Shop("Dockers", " 475 Brannan St #330, San Francisco, CA 94107, United States"));
+
+        /* Each addShop() call creates/opens db and then does operations and closes the db. I want to execute create/open and close
+        just one time: before any of these methods call and after all methods call completes */
+
         dbHandler.addShop(new Shop("Dunkin Donuts", "White Plains, NY 10601"));
         dbHandler.addShop(new Shop("Pizza Porlar", "North West Avenue, Boston , USA"));
         dbHandler.addShop(new Shop("Town Bakers", "Beverly Hills, CA 90210, USA"));
