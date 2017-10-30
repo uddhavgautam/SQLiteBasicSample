@@ -65,10 +65,17 @@ public class DBHandler extends SQLiteOpenHelper /* abstract class */ {
         db.insert(TABLE_SHOPS, null, values); //values insertion on table
 
         //destroy the db by closing. I don't need to call db.close. It is not needed because getWritableDatabase gives me synchronized database */
-//        db.close(); // Closing database connection. db is calling close(), it means there should be Closeable interface implemented by db's class
+        db.close(); // Closing database connection. db is calling close(), it means there should be Closeable interface implemented by db's class
+
+
+        /* The SqliteOpenHelper object holds on to one database connection. It appears to offer you a read and write connection, but it really doesn't. Call the read-only, and you'll get the write database connection regardless.
+
+So, one helper instance, one db connection. Even if you use it from multiple threads, one connection at a time. The SqliteDatabase object uses java locks to keep access serialized. So, if 100 threads have one db instance, calls to the actual on-disk database are serialized.*/
+
+
 
         /*SQLiteDatabase db = this.getWritableDatabase();
-        db.close();
+//        db.close();
         These above two lines: I am opening/creating database and then I am closing always. I want to open/create just one
         and call close in stop or destroy of my activity. This saves my processor and space.*/
 

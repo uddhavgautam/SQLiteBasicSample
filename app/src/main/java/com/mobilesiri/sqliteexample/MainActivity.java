@@ -31,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
         /* Each addShop() call creates/opens db and then does operations and closes the db. I want to execute create/open and close
         just one time: before any of these methods call and after all methods call completes */
 
+//        https://stackoverflow.com/questions/2493331/what-are-the-best-practices-for-sqlite-on-android
+
+
+
         dbHandler.addShop(new Shop("Dunkin Donuts", "White Plains, NY 10601"));
         dbHandler.addShop(new Shop("Pizza Porlar", "North West Avenue, Boston , USA"));
         dbHandler.addShop(new Shop("Town Bakers", "Beverly Hills, CA 90210, USA"));
